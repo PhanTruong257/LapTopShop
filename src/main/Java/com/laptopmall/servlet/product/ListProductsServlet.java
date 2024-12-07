@@ -39,32 +39,32 @@ public class ListProductsServlet extends HttpServlet {
         String curPageStr = req.getParameter("current_page");
         keyword = keyword == null ? "" : keyword;
         brandIdStr = brandIdStr == null ? "0" : brandIdStr;
-        // 封装查询信息
+
         QueryObject qo = new QueryObject(keyword, Integer.parseInt(brandIdStr));
         if (curPageStr != null) {
             qo.setCurrentPage(Integer.parseInt(curPageStr));
         }
-        // 从数据库获取商品的分页信息
+
         PageInfo<Product> pageInfo = productDAO.listProducts(qo);
         req.setAttribute("pageInfo", pageInfo);
         for (Product product : pageInfo.getList()) {
             System.out.println(product.toString());
         }
-        // 品牌信息显示
+
         List<Brand> brands = brandDAO.listBrands();
 
         for (Brand brand : brands) {
             System.out.println(brand.toString());
         }
         req.setAttribute("brands", brands);
-        // 高级查询数据回显
+
         req.setAttribute("qo", qo);
         req.setAttribute("check", "check");
         if (user.getRole() == 1) {
-            // 跳转到后台管理界面
+
             req.getRequestDispatcher("/backend/product_list.jsp").forward(req, resp);
         } else {
-            // 跳转到用户购物界面
+
             req.getRequestDispatcher("/portal/product_list.jsp").forward(req, resp);
         }
     }
