@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.laptopmall.bean.User;
+import com.laptopmall.bo.UserBo;
 import com.laptopmall.dao.UserDAO;
 
 @WebServlet("/save_user")
 public class SaveUserInfoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private UserDAO userDAO;
+    private UserBo userBo;
 
     @Override
     public void init() throws ServletException {
         // Khởi tạo đối tượng thao tác cơ sở dữ liệu cho người dùng
-        userDAO = new UserDAO();
+        userBo = new UserBo();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class SaveUserInfoServlet extends HttpServlet {
         user.setAddress(diaChi);
 
         // Cập nhật thông tin người dùng trong cơ sở dữ liệu
-        userDAO.updateUser(user);
+        userBo.updateUser(user);
 
         // Thông báo lưu thành công
         req.setAttribute("info", "Lưu thông tin thành công");

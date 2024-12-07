@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.laptopmall.bean.User;
+import com.laptopmall.bo.UserBo;
 import com.laptopmall.dao.UserDAO;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private UserDAO userDAO;
+    private UserBo userBo;
 
     @Override
     public void init() throws ServletException {
         // Khởi tạo đối tượng thao tác cơ sở dữ liệu cho người dùng
-        userDAO = new UserDAO();
+        userBo = new UserBo();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         // Kiểm tra tên đăng nhập đã tồn tại trong cơ sở dữ liệu chưa
-        if (userDAO.getUserByLoginName(tenDangNhap) != null) {
+        if (userBo.getUserByLoginName(tenDangNhap) != null) {
             req.setAttribute("loginNameMsg", "Tên đăng nhập đã tồn tại, vui lòng nhập lại");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
             return;
@@ -48,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
         User user = new User();
         user.setLoginName(tenDangNhap);
         user.setPassword(matKhau);
-        userDAO.insertUser(user);
+        userBo.insertUser(user);
 
         // Thông báo đăng ký thành công
         req.setAttribute("loginNameMsg", "Đăng ký thành công");
