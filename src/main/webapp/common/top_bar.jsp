@@ -23,7 +23,8 @@
         </h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="/laptopmall/product_list">Quản lý sản phẩm</a>
-            <a class="p-2 text-dark" href="/laptopmall/list_order">Chi tiết đơn hàng</a>
+            <a class="p-2 text-dark" href="/laptopmall/save_brand">Thêm thương hiệu</a>
+            <a class="p-2 text-dark" href="/laptopmall//edit_product">Thêm sản phẩm</a>
         </nav>
     </c:if>
     <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login.jsp">Đăng xuất</a>

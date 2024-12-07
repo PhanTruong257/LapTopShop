@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.laptopmall.bo.ProductBO;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -28,11 +29,11 @@ public class SaveProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static String LOAI_ANH_CHO_PHEP = new String("png;PNG;jpg;JPG;jpeg;JPEG");
-    private ProductDAO productDAO;
+    private ProductBO productBO;
 
     @Override
     public void init() throws ServletException {
-        productDAO = new ProductDAO();
+        productBO = new ProductBO();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class SaveProductServlet extends HttpServlet {
 
                     if (item.getName() == null || "".equals(item.getName())) {
 
-                        product.setImage(productDAO.getProductById(product.getId()).getImage());
+                        product.setImage(productBO.getProductById(product.getId()).getImage());
                     } else {
 
                         String tenMoRong = FilenameUtils.getExtension(item.getName());
@@ -92,11 +93,11 @@ public class SaveProductServlet extends HttpServlet {
         }
         if (product.getId() == null) {
             // Thêm mới sản phẩm
-            productDAO.insertProduct(product);
+            productBO.insertProduct(product);
             req.setAttribute("info", "Thêm sản phẩm mới thành công");
         } else {
             // Cập nhật sản phẩm
-            productDAO.updateProduct(product);
+            productBO.updateProduct(product);
             req.setAttribute("info", "Cập nhật sản phẩm thành công");
         }
         String str = product.getId() == null ? "" : "?id=" + product.getId();

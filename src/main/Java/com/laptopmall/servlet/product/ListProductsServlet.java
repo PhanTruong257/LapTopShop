@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.laptopmall.bean.Brand;
 import com.laptopmall.bean.Product;
 import com.laptopmall.bean.User;
-import com.laptopmall.dao.BrandDAO;
-import com.laptopmall.dao.ProductDAO;
+import com.laptopmall.bo.BrandBO;
+import com.laptopmall.bo.ProductBO;
 import com.laptopmall.page.PageInfo;
 import com.laptopmall.page.QueryObject;
 
@@ -21,13 +21,13 @@ import com.laptopmall.page.QueryObject;
 public class ListProductsServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private ProductDAO productDAO;
-    private BrandDAO brandDAO;
+    private ProductBO productBO;
+    private BrandBO brandBO;
 
     @Override
     public void init() throws ServletException {
-        productDAO = new ProductDAO();
-        brandDAO = new BrandDAO();
+        productBO = new ProductBO();
+        brandBO = new BrandBO();
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ListProductsServlet extends HttpServlet {
             qo.setCurrentPage(Integer.parseInt(curPageStr));
         }
 
-        PageInfo<Product> pageInfo = productDAO.listProducts(qo);
+        PageInfo<Product> pageInfo = productBO.listProducts(qo);
         req.setAttribute("pageInfo", pageInfo);
         for (Product product : pageInfo.getList()) {
             System.out.println(product.toString());
         }
 
-        List<Brand> brands = brandDAO.listBrands();
+        List<Brand> brands = brandBO.listBrands();
 
         for (Brand brand : brands) {
             System.out.println(brand.toString());

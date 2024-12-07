@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.laptopmall.dao.ProductDAO;
+import com.laptopmall.bo.ProductBO;
 
 @WebServlet("/del_product")
 public class DeleteProductServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private ProductDAO productDAO;
+    private ProductBO productBO;
 
     @Override
     public void init() throws ServletException {
-        productDAO = new ProductDAO();
+        productBO = new ProductBO();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DeleteProductServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String idStr = req.getParameter("id");
 
-        productDAO.deleteProductById(Integer.parseInt(idStr));
+        productBO.deleteProductById(Integer.parseInt(idStr));
         resp.sendRedirect("product_list");
     }
 
