@@ -71,8 +71,8 @@
         </form>
 
         <div style="float: right;">
-            <a href="/laptopmall/backend/brand_edit.jsp" class="btn btn-primary btn-sm"
-               role="button">Thêm thể loại</a>
+            <a href="/laptopmall/save_brand" class="btn btn-primary btn-sm"
+               role="button">Thêm thương hiệu</a>
             <a href="edit_product" class="btn btn-primary btn-sm"
                role="button">Thêm sản phẩm</a>
         </div>
@@ -84,7 +84,7 @@
             <th>Tên sản phẩm</th>
             <th>Hình ảnh</th>
             <th>Mô tả</th>
-            <th>Kho ${check}</th>
+            <th>Tồn kho</th>
             <th>Đơn giá</th>
             <th>Thao tác</th>
         </tr>

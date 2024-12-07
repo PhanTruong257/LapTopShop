@@ -54,7 +54,7 @@
         </div>
         <div class="form-group input-group-sm">
             <label for="price">Giá:</label>
-            <input type="number" name="price" id="price" class="form-control" min="0.00" max="20000.00" step="0.01"
+            <input type="number" name="price" id="price" class="form-control" min="0.00" step="0.01"
                    value="${prod.price}" required/>
         </div>
         <br/>
