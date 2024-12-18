@@ -32,6 +32,7 @@
             <th>Mã đơn hàng</th>
             <th>Số tiền đơn hàng</th>
             <th>Thời gian đặt hàng</th>
+            <th>Thao tác</th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +41,8 @@
                 <td>${order.id}</td>
                 <td>${order.payment}</td>
                 <td><fmt:formatDate value="${order.payTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                <td><a href="order_detail?order_id=${order.id}"
+                       class="btn btn-primary btn-sm" role="button">Chi Tiết Đơn Hàng</a></td>
             </tr>
         </c:forEach>
         </tbody>

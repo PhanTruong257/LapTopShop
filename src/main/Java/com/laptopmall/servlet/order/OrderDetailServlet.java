@@ -32,14 +32,21 @@ public class OrderDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         User user = (User) req.getSession().getAttribute("CURRENT_USER");
-        String orderIdStr = req.getParameter("order_id");
-
-        List<OrderItem> orderItems = orderItemDAO.ListOrderItemsByUserIdAndOrderId(user.getId(), Integer.parseInt(orderIdStr));
-        req.setAttribute("orderItems", orderItems);
-
-        Order order = orderDAO.getOrderById(Integer.parseInt(orderIdStr));
-        req.setAttribute("order", order);
-        req.getRequestDispatcher("/portal/order_detail.jsp").forward(req, resp);
+        if (user.getRole() == 1) {
+            String orderIdStr = req.getParameter("order_id");
+            List<OrderItem> orderItems = orderItemDAO.ListOrderItemsByOrderId(Integer.parseInt(orderIdStr));
+            req.setAttribute("orderItems", orderItems);
+            Order order = orderDAO.getOrderById(Integer.parseInt(orderIdStr));
+            req.setAttribute("order", order);
+            req.getRequestDispatcher("/backend/order_detail.jsp").forward(req, resp);
+        } else {
+            String orderIdStr = req.getParameter("order_id");
+            List<OrderItem> orderItems = orderItemDAO.ListOrderItemsByUserIdAndOrderId(user.getId(), Integer.parseInt(orderIdStr));
+            req.setAttribute("orderItems", orderItems);
+            Order order = orderDAO.getOrderById(Integer.parseInt(orderIdStr));
+            req.setAttribute("order", order);
+            req.getRequestDispatcher("/portal/order_detail.jsp").forward(req, resp);
+        }
     }
 
     @Override

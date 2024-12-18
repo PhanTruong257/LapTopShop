@@ -2,7 +2,6 @@
          pageEncoding="UTF-8" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:out value="Chào bạn, JSTL!"/>
 <!DOCTYPE html>
 <html>
 <head>
