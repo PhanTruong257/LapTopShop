@@ -31,7 +31,7 @@
 <%@ include file="/common/top_bar.jsp" %>
 <div id="listDiv">
     <div>
-        <span><strong>Số Đơn Hàng: ${order.id}</strong></span>
+        <span><strong>Số Đơn Hàng: ${order.id} Tên Khách Hàng: ${userView}</strong></span>
         <div style="float: right;">
             <a href="list_order" class="btn btn-primary btn-sm"
                role="button">Quay lại</a>

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.laptopmall.bean.Order;
+import com.laptopmall.bean.User;
 import com.laptopmall.page.PageInfo;
 import com.laptopmall.util.JdbcUtil;
 
@@ -148,7 +149,7 @@ public class OrderDAO {
         PreparedStatement ps = null;
         try {
             conn = JdbcUtil.getConnection();
-            // 自动返回主键
+
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, order.getUserId());
             ps.setBigDecimal(2, order.getPayment());
@@ -240,4 +241,6 @@ public class OrderDAO {
         }
         return list;
     }
+
+ 
 }

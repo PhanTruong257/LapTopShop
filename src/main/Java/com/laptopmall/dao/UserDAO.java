@@ -136,4 +136,35 @@ public class UserDAO {
         }
         return false;
     }
+
+    public User getUserById(Integer id) {
+        String sql = "select * from user where id=?";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = JdbcUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setLoginName(rs.getString("login_name"));
+                user.setPassword("");
+                user.setRole(rs.getInt("role"));
+                user.setRealName(rs.getString("real_name"));
+                user.setPhone(rs.getString("phone"));
+                user.setAddress(rs.getString("address"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtil.close(conn, ps, rs);
+        }
+        return null;
+
+    }
 }
+
