@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.laptopmall.bean.Order;
+import com.laptopmall.bean.User;
 import com.laptopmall.page.PageInfo;
 import com.laptopmall.util.JdbcUtil;
 
@@ -238,4 +239,6 @@ public class OrderDAO {
         }
         return list;
     }
+
+ 
 }

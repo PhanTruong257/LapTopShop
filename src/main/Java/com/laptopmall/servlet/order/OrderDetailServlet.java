@@ -14,6 +14,7 @@ import com.laptopmall.bean.OrderItem;
 import com.laptopmall.bean.User;
 import com.laptopmall.dao.OrderDAO;
 import com.laptopmall.dao.OrderItemDAO;
+import com.laptopmall.dao.UserDAO;
 
 @WebServlet("/order_detail")
 public class OrderDetailServlet extends HttpServlet {
@@ -37,6 +38,9 @@ public class OrderDetailServlet extends HttpServlet {
             List<OrderItem> orderItems = orderItemDAO.ListOrderItemsByOrderId(Integer.parseInt(orderIdStr));
             req.setAttribute("orderItems", orderItems);
             Order order = orderDAO.getOrderById(Integer.parseInt(orderIdStr));
+            UserDAO userDAO = new UserDAO();
+            User userView = userDAO.getUserById(order.getUserId());
+            req.setAttribute("userView", userView.getRealName());
             req.setAttribute("order", order);
             req.getRequestDispatcher("/backend/order_detail.jsp").forward(req, resp);
         } else {
