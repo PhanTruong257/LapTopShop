@@ -31,7 +31,6 @@ public class AddToCartServlet extends HttpServlet {
 
         Cart cart = cartDAO.getCartByProductIdAndUserId(user.getId(), Integer.parseInt(prodIdStr));
         if (cart == null) {
-            //购物车没该商品,添加进购物车
             Cart newCart = new Cart();
             newCart.setProductId(Integer.parseInt(prodIdStr));
             newCart.setQuantity(Integer.parseInt(quantityStr));

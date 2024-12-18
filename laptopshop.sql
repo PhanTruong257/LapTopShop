@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2024 at 02:58 AM
+-- Generation Time: Dec 18, 2024 at 09:47 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,9 @@ INSERT INTO `brand` (`id`, `name`) VALUES
 (4, 'Apple'),
 (5, 'Asus'),
 (6, 'LG'),
-(7, 'toshiba');
+(7, 'toshiba'),
+(16, 'Hp'),
+(17, 'Acer');
 
 -- --------------------------------------------------------
 
@@ -53,9 +55,9 @@ INSERT INTO `brand` (`id`, `name`) VALUES
 
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL COMMENT '商品id',
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `quantity` int(11) DEFAULT NULL COMMENT '购买商品数量'
+  `product_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
@@ -76,40 +78,8 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `user_id`, `payment`, `pay_time`) VALUES
-(10021, 2, 25796.00, '2019-06-08 21:31:08'),
-(10022, 2, 23997.00, '2019-06-09 00:00:14'),
-(10023, 2, 3999.00, '2019-06-09 00:09:07'),
-(10024, 2, 4099.00, '2019-06-09 00:09:13'),
-(10025, 2, 5299.00, '2019-06-09 00:09:17'),
-(10026, 2, 5299.00, '2019-06-09 00:09:20'),
-(10027, 2, 8098.00, '2019-06-09 00:10:11'),
-(10028, 2, 11298.00, '2019-06-09 00:10:17'),
-(10029, 2, 5999.00, '2019-06-09 00:10:21'),
-(10030, 2, 5299.00, '2019-06-09 00:10:24'),
-(10031, 2, 5299.00, '2019-06-09 00:10:28'),
-(10032, 2, 17297.00, '2019-06-09 09:32:47'),
-(10033, 2, 41691.00, '2019-06-09 10:21:33'),
-(10034, 2, 13097.00, '2019-06-09 14:18:25'),
-(10035, 2, 6188.00, '2019-06-09 22:21:42'),
-(10036, 3, 7998.00, '2019-06-09 22:24:22'),
-(10037, 3, 20095.00, '2019-06-09 22:26:14'),
-(10038, 2, 1999800.00, '2019-06-09 22:29:43'),
-(10039, 3, 239940.00, '2019-06-09 23:18:14'),
-(10040, 2, 38094.00, '2019-06-10 08:28:19'),
-(10041, 2, 45292.00, '2019-06-10 08:29:31'),
-(10042, 2, 8098.00, '2019-06-10 08:30:43'),
-(10043, 2, 17997.00, '2019-06-10 09:18:54'),
-(10044, 2, 372114.00, '2019-06-11 14:51:13'),
-(10045, 2, 40990.00, '2019-06-11 15:00:56'),
-(10046, 2, 623048.00, '2019-06-11 15:02:34'),
-(10047, 2, 4099.00, '2019-06-11 15:10:31'),
-(10048, 2, 36891.00, '2019-06-11 15:12:55'),
-(10049, 4, 11998.00, '2019-06-11 15:18:29'),
-(10050, 5, 9999.00, '2019-06-11 15:56:42'),
-(10051, 5, 11998.00, '2019-06-11 15:58:06'),
-(10052, 5, 783804.00, '2019-06-11 15:58:51'),
-(10053, 2, 5999.00, '2019-06-13 13:07:45'),
-(10054, 2, 29997.00, '2019-06-14 07:53:46');
+(10055, 3, 20000.00, '2024-12-18 15:21:22'),
+(10056, 3, 30480.00, '2024-12-18 15:21:34');
 
 -- --------------------------------------------------------
 
@@ -133,58 +103,9 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`id`, `user_id`, `order_id`, `product_name`, `product_image`, `product_price`, `quantity`, `total_price`) VALUES
-(6, 2, 10021, '联想 拯救者Y7000', 'lenovo-拯救者-Y7000.jpg', 6299.00, 2, 12598.00),
-(7, 2, 10021, 'Apple MacBook Air', 'Apple-MacBook-Air.jpg', 8299.00, 1, 8299.00),
-(8, 2, 10021, '联想 小新潮7000', 'lenovo-小新-潮7000.jpg', 4899.00, 1, 4899.00),
-(9, 2, 10022, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 2, 19998.00),
-(10, 2, 10022, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 1, 3999.00),
-(11, 2, 10023, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 1, 3999.00),
-(12, 2, 10024, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(13, 2, 10025, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 1, 5299.00),
-(14, 2, 10026, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 1, 5299.00),
-(15, 2, 10027, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 1, 3999.00),
-(16, 2, 10027, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(17, 2, 10028, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 1, 5999.00),
-(18, 2, 10028, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 1, 5299.00),
-(19, 2, 10029, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 1, 5999.00),
-(20, 2, 10030, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 1, 5299.00),
-(21, 2, 10031, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 1, 5299.00),
-(22, 2, 10032, 'Apple MacBook Air', 'Apple-MacBook-Air.jpg', 8299.00, 1, 8299.00),
-(23, 2, 10032, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(24, 2, 10032, '联想 小新潮7000', 'lenovo-小新-潮7000.jpg', 4899.00, 1, 4899.00),
-(25, 2, 10033, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 5, 20495.00),
-(26, 2, 10033, '联想 小新Air', 'lenovo-小新-air.jpg', 5299.00, 4, 21196.00),
-(27, 2, 10034, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 2, 8198.00),
-(28, 2, 10034, '联想 小新潮7000', 'lenovo-小新-潮7000.jpg', 4899.00, 1, 4899.00),
-(29, 2, 10035, '华硕 灵耀S 2代', '3ec5b854-09e9-4a93-a089-0cb3ff31d015.jpg', 6188.00, 1, 6188.00),
-(30, 3, 10036, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 2, 7998.00),
-(31, 3, 10037, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 4, 15996.00),
-(32, 3, 10037, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(33, 2, 10038, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 200, 1999800.00),
-(34, 3, 10039, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 60, 239940.00),
-(35, 2, 10040, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 1, 5999.00),
-(36, 2, 10040, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 2, 19998.00),
-(37, 2, 10040, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 2, 7998.00),
-(38, 2, 10040, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(39, 2, 10041, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 1, 3999.00),
-(40, 2, 10041, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 4, 16396.00),
-(41, 2, 10041, 'Apple MacBook Air', 'Apple-MacBook-Air.jpg', 8299.00, 3, 24897.00),
-(42, 2, 10042, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 1, 3999.00),
-(43, 2, 10042, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(44, 2, 10043, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 3, 17997.00),
-(45, 2, 10044, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 1, 5999.00),
-(46, 2, 10044, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 3, 29997.00),
-(47, 2, 10044, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 82, 336118.00),
-(48, 2, 10045, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 10, 40990.00),
-(49, 2, 10046, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 152, 623048.00),
-(50, 2, 10047, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 1, 4099.00),
-(51, 2, 10048, '荣耀 MagicBook 2019', 'honor-magicbook-2019.jpg', 4099.00, 9, 36891.00),
-(52, 4, 10049, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 2, 11998.00),
-(53, 5, 10050, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 1, 9999.00),
-(54, 5, 10051, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 2, 11998.00),
-(55, 5, 10052, '华为 MateBook E', 'huawei-matebook-e.jpg', 3999.00, 196, 783804.00),
-(56, 2, 10053, '华为 MateBook 14', 'huawei-matebook14.jpg', 5999.00, 1, 5999.00),
-(57, 2, 10054, '华为 MateBook X Pro', 'huawei-matebook-x-pro.jpg', 9999.00, 3, 29997.00);
+(58, 3, 10055, 'Macbook AIR', 'Apple-MacBook-Air.jpg', 20000.00, 1, 20000.00),
+(59, 3, 10056, 'Acer Aspire 7', '45b822b6-26fb-41f6-a786-77c829141993.jpg', 13990.00, 1, 13990.00),
+(60, 3, 10056, 'Acer Swift Go 14', 'ea357541-7cac-40af-a644-4635f3892c36.jpg', 16490.00, 1, 16490.00);
 
 -- --------------------------------------------------------
 
@@ -207,7 +128,15 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `brand_id`, `name`, `image`, `detail`, `stock`, `price`) VALUES
-(10012, 1, 'Macbook AIR', 'b25c9c36-09dc-4347-833f-debc783ec814.jpg', 'siêu ngon, mua về là dùng code như rồng', 12, 20000.00);
+(10012, 1, 'Macbook AIR', 'Apple-MacBook-Air.jpg', 'siêu ngon, mua về là dùng code như rồng', 10, 20000.00),
+(10013, 16, 'HP Pavilion X360 14', '8cb6fbec-c05a-4dfc-9329-a8d201ae67cc.jpg', 'Laptop HP Pavilion X360 14 ek2024TU Core 5 120U/16GB/512GB/Touch/Pen/Win11 (9Z2V6PA)', 10, 19000.00),
+(10015, 17, 'Acer Aspire 7', '45b822b6-26fb-41f6-a786-77c829141993.jpg', 'Laptop Acer Aspire 7 A715 76 53PJ i5 12450H/16GB/512GB/Win11 (NH.QGESV.007)', 9, 13990.00),
+(10016, 17, 'Acer Aspire 5', '72c8589d-26b6-49c6-80d4-5b4d7ff55018.jpg', 'Laptop Acer Aspire 5 A514 54 5127 i5 1135G7/8GB/512GB/Win11 (NX.A28SV.007)', 10, 18990.00),
+(10017, 17, 'Acer Aspire 3', 'ed94ee94-9833-4b65-895f-12542d5b7aa1.jpg', 'Laptop Acer Aspire 3 A315 58 529V i5 1135G7/8GB/256GB/Win11 (NX.ADDSV.00N)', 10, 8990.00),
+(10018, 17, 'Acer Aspire Lite', '2d50cc7a-3067-49a9-b1df-e8d723f881c9.jpg', 'Laptop Acer Aspire Lite AL16 51P 596H i5 1235U/8GB/512GB/Win11 (NX.KWZSV.002)', 10, 12690.00),
+(10019, 17, 'Acer Aspire Lite 15', 'cc392d13-b303-4d28-ba83-021443ad2e66.jpg', 'Laptop Acer Aspire Lite 15 51M 55NB i5 1155G7/8GB/512GB/Win11 (NX.KRSSV.001)', 10, 11190.00),
+(10020, 17, 'Acer Aspire Lite 14', '5144a6c4-ec66-45bf-9e0f-eb59776c6057.jpg', 'Laptop Acer Aspire Lite 14 51M 59BN i5 1235U/16GB/512GB/Win11 (NX.KTXSV.001)', 10, 13490.00),
+(10021, 17, 'Acer Swift Go 14', 'ea357541-7cac-40af-a644-4635f3892c36.jpg', 'Laptop Acer Swift Go 14 41 R251 R5 7430U/16GB/1TB/Win11 (NX.KG3SV.005)', 9, 16490.00);
 
 -- --------------------------------------------------------
 
@@ -231,10 +160,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `login_name`, `password`, `role`, `real_name`, `phone`, `address`) VALUES
 (1, 'admin', 'admin', 1, 'PT', '888888', 'hehe'),
-(3, '11', '11', 0, NULL, NULL, NULL),
-(4, 'user2', '1234', 0, NULL, NULL, NULL),
-(5, '222', '222', 0, NULL, NULL, NULL),
-(6, 'user3', '1234', 0, NULL, NULL, NULL);
+(3, '11', '11', 0, 'hehe', '0123456789', 'hehe'),
+(4, 'user2', '1234', 0, 'hehe2', '0123456788', 'hehe2'),
+(5, '222', '222', 0, 'hehe3', '0123456787', 'hehe3'),
+(6, 'user3', '1234', 0, 'hehe4', '0123456786', 'hehe4');
 
 --
 -- Indexes for dumped tables
@@ -284,31 +213,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10055;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10057;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10013;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10022;
 
 --
 -- AUTO_INCREMENT for table `user`

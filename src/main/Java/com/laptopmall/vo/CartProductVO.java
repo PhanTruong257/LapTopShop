@@ -2,11 +2,6 @@ package com.laptopmall.vo;
 
 import java.math.BigDecimal;
 
-/**
- * 	购物车商品的视图对象
- * @author chen
- *
- */
 public class CartProductVO {
 
 	private Integer cartId;
