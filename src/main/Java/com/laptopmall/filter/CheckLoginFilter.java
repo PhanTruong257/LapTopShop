@@ -21,7 +21,7 @@ import com.laptopmall.bean.User;
 @WebFilter(filterName = "CheckLoginFilter", urlPatterns = "/*")
 public class CheckLoginFilter implements Filter {
 
-    private static final String[] ALLOWED_PATHS = {"/login", "/login.jsp", "/register", "/register.jsp", "/js/jquery-3.3.1.min.js", "/js/bootstrap.min.js", "/css/bootstrap.css"};
+    private static final String[] ALLOWED_PATHS = {"/index.jsp", "/login", "/login.jsp", "/register", "/register.jsp", "/guest.jsp", "/product_list", "/js/jquery-3.3.1.min.js", "/js/bootstrap.min.js", "/css/bootstrap.css"};
 
     @Override
     public void destroy() {
@@ -35,13 +35,25 @@ public class CheckLoginFilter implements Filter {
         HttpSession session = req.getSession();
         String path = req.getServletPath();
         System.out.println(path);
-        boolean allowed = Arrays.asList(ALLOWED_PATHS).contains(path);
+        boolean allowed = isAllowedPath(path);
         User user = (User) session.getAttribute("CURRENT_USER");
         if (!allowed && user == null) {
             ((HttpServletResponse) response).sendRedirect("/laptopmall/login.jsp");
             return;
         }
         chain.doFilter(request, response);
+    }
+
+    public boolean isAllowedPath(String path) {
+        if (Arrays.asList(ALLOWED_PATHS).contains(path)) {
+            return true;
+        }
+
+        if (path.startsWith("/js/") || path.startsWith("/css/") || path.startsWith("/images/")) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

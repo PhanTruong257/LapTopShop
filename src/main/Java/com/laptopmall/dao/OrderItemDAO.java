@@ -44,6 +44,36 @@ public class OrderItemDAO {
         return list;
     }
 
+    public List<OrderItem> ListOrderItemsByOrderId(Integer orderId) {
+        String sql = "select * from order_item where order_id=?";
+        List<OrderItem> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = JdbcUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setId(rs.getInt("id"));
+                orderItem.setOrderId(rs.getInt("order_id"));
+                orderItem.setUser_id(rs.getInt("user_id"));
+                orderItem.setProductName(rs.getString("product_name"));
+                orderItem.setProductImage(rs.getString("product_image"));
+                orderItem.setProductPrice(rs.getBigDecimal("product_price"));
+                orderItem.setQuantity(rs.getInt("quantity"));
+                orderItem.setTotalPrice(rs.getBigDecimal("total_price"));
+                list.add(orderItem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtil.close(conn, ps, rs);
+        }
+        return list;
+    }
 
     public boolean insertOrderItem(OrderItem orderItem) {
         String sql = "insert into "

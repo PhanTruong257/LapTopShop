@@ -34,6 +34,7 @@ public class ListProductsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         User user = (User) req.getSession().getAttribute("CURRENT_USER");
+
         String keyword = req.getParameter("keyword");
         String brandIdStr = req.getParameter("brand_id");
         String curPageStr = req.getParameter("current_page");
@@ -60,11 +61,11 @@ public class ListProductsServlet extends HttpServlet {
 
         req.setAttribute("qo", qo);
         req.setAttribute("check", "check");
-        if (user.getRole() == 1) {
-
+        if (user == null) {
+            req.getRequestDispatcher("/guest.jsp").forward(req, resp);
+        } else if (user.getRole() == 1) {
             req.getRequestDispatcher("/backend/product_list.jsp").forward(req, resp);
         } else {
-
             req.getRequestDispatcher("/portal/product_list.jsp").forward(req, resp);
         }
     }
