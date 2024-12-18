@@ -45,7 +45,6 @@ public class OrderDAO {
         return new PageInfo<>(list, currentPage, pageSize, getOrderCount(userId));
     }
 
-    // 计算当前用户有多少订单记录
     private int getOrderCount(Integer userId) {
         String sql = "select count(1) from `order` where user_id=?";
         Connection conn = null;
@@ -148,7 +147,6 @@ public class OrderDAO {
         PreparedStatement ps = null;
         try {
             conn = JdbcUtil.getConnection();
-            // 自动返回主键
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, order.getUserId());
             ps.setBigDecimal(2, order.getPayment());

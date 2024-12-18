@@ -107,7 +107,6 @@ public class ProductDAO {
     public PageInfo<Product> listProducts(QueryObject qo) {
         int totalCount = getProductCount(qo);
         String sql = "select * from product where";
-        // brandId为0,表示全选
         if (qo.getBrandId() != 0) {
             sql += " brand_id=? and";
         }
@@ -150,7 +149,6 @@ public class ProductDAO {
 
     public int getProductCount(QueryObject qo) {
         String sql = "select count(1) from product where";
-        //
         if (qo.getBrandId() != 0) {
             sql += " brand_id=? and";
         }
